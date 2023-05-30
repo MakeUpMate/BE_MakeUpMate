@@ -3,6 +3,11 @@ import os
 from flask_cors import CORS, cross_origin
 from utils.utils import decodeImage
 from predict import predict
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate("./serviceAccount.json")
+firebase_admin.initialize_app(cred)
 
 os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
