@@ -1,0 +1,9 @@
+Flask
+flask-cors
+numpy
+scikit-learn
+pandas
+matplotlib
+tensorflow
+firebase-admin
+opencv-python
