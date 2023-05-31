@@ -29,3 +29,15 @@ class predict:
         else:
             prediction = 'This is a cat'
             return [{"response": prediction}]
+        
+        # class_result = 0
+        # temp = 0
+        # counter = 0
+
+        # for i in pred[0]:
+        # counter+=1
+        # if i > temp:
+        #     temp = i
+        #     class_result = counter
+
+        # return class_result
