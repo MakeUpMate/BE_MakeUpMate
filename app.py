@@ -48,17 +48,17 @@ def predictRoute():
         abort(make_response(jsonify(message="Unauthorized User"), 401))
     image = request.json['image']
     decodeImage(image, clApp.filename)
-    result = clApp.classifier.skinClassifier()
-    return jsonify(result)
-    # try:
-    #     pred = clApp.classifier.skinClassifier()
-    #     data = getData(pred)
-    #     return jsonify(data)
-    # except InvalidDocomentId:
-    #     abort(make_response(jsonify(message="Error when getting data"), 500))
-    # except Exception as e:
-    #     print(e)
-    #     abort(make_response(jsonify(message="Error when predicting data"), 500))
+    # result = clApp.classifier.skinClassifier()
+    # return jsonify(result)
+    try:
+        pred = clApp.classifier.skinClassifier()
+        data = getData(pred)
+        return jsonify(data)
+    except InvalidDocomentId:
+        abort(make_response(jsonify(message="Error when getting data"), 500))
+    except Exception as e:
+        print(e)
+        abort(make_response(jsonify(message="Error when predicting data"), 500))
 
 
 #port = int(os.getenv("PORT"))
