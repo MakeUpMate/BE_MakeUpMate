@@ -23,21 +23,21 @@ class predict:
         input_data = input_data/255
         pred = loaded_model.predict(input_data)
 
-        if pred[0] > 0.5 :
-            prediction = 'This is a dog'
-            return [{"response": prediction}]
-        else:
-            prediction = 'This is a cat'
-            return [{"response": prediction}]
+        # if pred[0] > 0.5 :
+        #     prediction = 'This is a dog'
+        #     return [{"response": prediction}]
+        # else:
+        #     prediction = 'This is a cat'
+        #     return [{"response": prediction}]
         
-        # class_result = 0
-        # temp = 0
-        # counter = 0
+        class_result = 0
+        temp = 0
+        counter = 0
 
-        # for i in pred[0]:
-        # counter+=1
-        # if i > temp:
-        #     temp = i
-        #     class_result = counter
+        for i in pred[0]:
+            counter+=1
+            if i > temp:
+                temp = i
+                class_result = counter
 
-        # return class_result
+        return class_result
