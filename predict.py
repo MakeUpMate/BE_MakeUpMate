@@ -8,10 +8,10 @@ class predict:
 
 
     def skinClassifier(self):
-        model_path = "workspaceML\model.h5"
+        model_path = "model.h5"
         loaded_model = tf.keras.models.load_model(model_path)
 
-        img=load_img("static\img\inputImage.jpg", target_size=(150, 150))
+        img=load_img("inputImage.jpg", target_size=(150, 150))
         x=img_to_array(img)
         x /= 255
         x=np.expand_dims(x, axis=0)

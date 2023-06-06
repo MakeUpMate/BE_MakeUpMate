@@ -15,6 +15,7 @@ os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
 
 app = Flask(__name__)
+# app.debug = True
 CORS(app)
 
 #@cross_origin()
@@ -53,8 +54,8 @@ def predictRoute():
     except InvalidDocomentId:
         abort(make_response(jsonify(message="Error when getting data"), 500))
     except Exception as e:
-        print(e)
-        abort(make_response(jsonify(message="Error when predicting data"), 500))
+        print(str(e))
+        abort(make_response(jsonify(message="Error when predicting data", errorType=str(e)), 500))
 
 
 #port = int(os.getenv("PORT"))
