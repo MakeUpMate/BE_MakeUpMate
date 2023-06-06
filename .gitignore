@@ -132,4 +132,4 @@ serviceAccounts.json
 config.json
 request.json
 inputImage.jpg
-inputImage.jpeg
+getToken.py

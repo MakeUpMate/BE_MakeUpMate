@@ -1,7 +1,6 @@
 import numpy as np
-from PIL import Image
-import cv2
 import tensorflow as tf
+from keras.utils import img_to_array, load_img
 
 class predict:
     def __init__(self,filename):
@@ -9,26 +8,15 @@ class predict:
 
 
     def skinClassifier(self):
-
-        model_path = "model.h5"
+        model_path = "workspaceML\model.h5"
         loaded_model = tf.keras.models.load_model(model_path)
 
-        imagename = self.filename
-        image = cv2.imread(imagename)
-
-        image_fromarray = Image.fromarray(image, 'RGB')
-        resize_image = image_fromarray.resize((150, 150))
-        expand_input = np.expand_dims(resize_image,axis=0)
-        input_data = np.array(expand_input)
-        input_data = input_data/255
-        pred = loaded_model.predict(input_data)
-
-        # if pred[0] > 0.5 :
-        #     prediction = 'This is a dog'
-        #     return [{"response": prediction}]
-        # else:
-        #     prediction = 'This is a cat'
-        #     return [{"response": prediction}]
+        img=load_img("static\img\inputImage.jpg", target_size=(150, 150))
+        x=img_to_array(img)
+        x /= 255
+        x=np.expand_dims(x, axis=0)
+        images = np.vstack([x])
+        pred = loaded_model.predict(images, batch_size=10)
         
         class_result = 0
         temp = 0

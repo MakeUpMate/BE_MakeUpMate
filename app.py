@@ -42,14 +42,10 @@ def getData(docId):
 def predictRoute():
     try:
         auth.verify_id_token(request.json['token'])
-        # decoded_token = auth.verify_id_token(request.json['token'])
-        # uid = decoded_token['uid']
     except:
         abort(make_response(jsonify(message="Unauthorized User"), 401))
     image = request.json['image']
     decodeImage(image, clApp.filename)
-    # result = clApp.classifier.skinClassifier()
-    # return jsonify(result)
     try:
         pred = clApp.classifier.skinClassifier()
         data = getData(pred)
