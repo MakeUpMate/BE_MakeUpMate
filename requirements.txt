@@ -6,4 +6,3 @@ pandas
 matplotlib
 tensorflow
 firebase-admin
-opencv-python
