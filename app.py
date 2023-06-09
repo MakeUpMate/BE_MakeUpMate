@@ -15,7 +15,7 @@ os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
 
 app = Flask(__name__)
-app.debug = True
+# app.debug = True
 CORS(app)
 
 #@cross_origin()
