@@ -15,7 +15,7 @@ os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
 
 app = Flask(__name__)
-# app.debug = True
+app.debug = True
 CORS(app)
 
 #@cross_origin()
@@ -51,11 +51,7 @@ def predictRoute():
     decodeImage(image, clApp.filename)
     try:
         pred = clApp.classifier.skinClassifier()
-        recommend = getData("recommendations",pred)
-        bestMatch = getData("shade",recommend['bestMatch'])
-        recom2 = getData("shade",recommend['recom2'])
-        recom3 = getData("shade",recommend['recom3'])
-        res = {"prediction": pred ,"bestMatch" : bestMatch, "recom2" : recom2, "recom3" : recom3}
+        res = getData("recommendations",pred)
         return jsonify(res)
     except InvalidDocomentId:
         abort(make_response(jsonify(message="Error when getting data"), 500))
