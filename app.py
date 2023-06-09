@@ -29,9 +29,9 @@ class ClientApp:
 def home():
     return render_template('index.html')
 
-def getData(docId):
+def getData(collectionName, docId):
     stringId = str(docId)
-    doc_ref = db.collection('recommendations').document(stringId)
+    doc_ref = db.collection(collectionName).document(stringId)
     doc = doc_ref.get()
     if (doc.to_dict() != None):
         return doc.to_dict()
@@ -42,15 +42,21 @@ def getData(docId):
 @cross_origin()
 def predictRoute():
     try:
-        auth.verify_id_token(request.json['token'])
+        token = request.headers['token']
+        auth.verify_id_token(token)
     except:
         abort(make_response(jsonify(message="Unauthorized User"), 401))
+    
     image = request.json['image']
     decodeImage(image, clApp.filename)
     try:
         pred = clApp.classifier.skinClassifier()
-        data = getData(pred)
-        return jsonify(data)
+        recommend = getData("recommendations",pred)
+        bestMatch = getData("shade",recommend['bestMatch'])
+        recom2 = getData("shade",recommend['recom2'])
+        recom3 = getData("shade",recommend['recom3'])
+        res = {"prediction": pred ,"bestMatch" : bestMatch, "recom2" : recom2, "recom3" : recom3}
+        return jsonify(res)
     except InvalidDocomentId:
         abort(make_response(jsonify(message="Error when getting data"), 500))
     except Exception as e:
