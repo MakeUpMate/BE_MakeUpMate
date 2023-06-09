@@ -6,6 +6,9 @@ from predict import predict
 from execption import InvalidDocomentId
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
+from dotenv import load_dotenv
+
+load_dotenv()
 
 cred = credentials.Certificate("serviceAccounts.json")
 firebase_admin.initialize_app(cred)
@@ -59,9 +62,8 @@ def predictRoute():
         print(str(e))
         abort(make_response(jsonify(message="Error when predicting data", errorType=str(e)), 500))
 
-
-#port = int(os.getenv("PORT"))
 if __name__ == "__main__":
+    port = int(os.getenv("PORT"))
     clApp = ClientApp()
-    #app.run(host='0.0.0.0', port=port)
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=port)
+    # app.run(host='0.0.0.0', port=5000)
