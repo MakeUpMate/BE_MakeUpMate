@@ -2,8 +2,7 @@ import base64
 
 def decodeImage(imgstring, fileName):
     imgdata = base64.b64decode(imgstring)
-    path = "static\img\\" + fileName
-    with open(path, 'wb') as f:
+    with open(fileName, 'wb') as f:
         f.write(imgdata)
         f.close()
 
