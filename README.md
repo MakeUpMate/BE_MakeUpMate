@@ -2,8 +2,8 @@
 
 This repository contains the source code for the MakeUpMate Back-end application.
 
-## List API (Full Documentation you can read at https://makeupmate-5ss3p3jbsq-as.a.run.app/api-doc)
-
+## List API 
+(Full Documentation you can read at https://makeupmate-5ss3p3jbsq-as.a.run.app/api-doc)
 - Login
 - Predict
 
@@ -16,7 +16,10 @@ This repository contains the source code for the MakeUpMate Back-end application
 - Put the two files into the BE_MakeUpMate folder
 - Create file .env and add "PORT=8080" (you can change your port)
 - run "python app.py" 
-- You can check in http:localhost:8080 (match your ports to those in the .env file)
+- You can check in http://localhost:8080 (match your ports to those in the .env file)
+
+## Deployment Link
+https://makeupmate-5ss3p3jbsq-as.a.run.app
 
 ## Note
 Please don't share config.json and serviceAccounts.json to public because there is a credentials token.
