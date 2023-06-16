@@ -8,3 +8,4 @@ tensorflow
 firebase-admin
 python-dotenv
 Pyrebase
+requests-toolbelt==0.10.1
