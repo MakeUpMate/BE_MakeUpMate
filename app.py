@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 import json
 import pyrebase
 
-
 load_dotenv()
 
 cred = credentials.Certificate("serviceAccounts.json")
