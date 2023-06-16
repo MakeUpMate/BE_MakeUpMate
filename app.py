@@ -1,18 +1,29 @@
 from flask import Flask, make_response, request, jsonify, render_template, abort
 import os
 from flask_cors import CORS, cross_origin
+from requests import HTTPError
 from utils.utils import decodeImage
 from predict import predict
 from execption import InvalidDocomentId
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
 from dotenv import load_dotenv
+import json
+import pyrebase
+
 
 load_dotenv()
 
 cred = credentials.Certificate("serviceAccounts.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
+with open('config.json') as json_file:
+    config = json.load(json_file)
+
+firebase = pyrebase.initialize_app(config)
+
+auth_client = firebase.auth()
 
 os.putenv('LANG', 'en_US.UTF-8')
 os.putenv('LC_ALL', 'en_US.UTF-8')
@@ -21,7 +32,6 @@ app = Flask(__name__)
 # app.debug = True
 CORS(app)
 
-#@cross_origin()
 class ClientApp:
     def __init__(self):
         self.filename = "inputImage.jpg"
@@ -31,6 +41,33 @@ class ClientApp:
 @cross_origin()
 def home():
     return render_template('index.html')
+
+@app.route("/api-doc", methods=['GET'])
+@cross_origin()
+def api():
+    return render_template('api.html')
+
+@app.route("/our-team", methods=['GET'])
+@cross_origin()
+def team():
+    return render_template('team.html')
+
+@app.route("/api/login", methods=['POST'])
+@cross_origin()
+def login():
+    email = request.json["email"]
+    password = request.json["password"]
+    try:
+        user = auth_client.sign_in_with_email_and_password(email,password)
+        id_token = user["idToken"]
+    except HTTPError as e:
+        error_response = e.args[1]
+        error_data = json.loads(error_response)
+        error_message = error_data["error"]["message"]
+        error_code = error_data["error"]["code"]
+        abort(make_response(jsonify(error_code=error_code, message=error_message), error_code))
+    res = {"token" : id_token}
+    return jsonify(res)
 
 def getData(collectionName, docId):
     stringId = str(docId)
