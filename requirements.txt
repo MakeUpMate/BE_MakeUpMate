@@ -7,3 +7,4 @@ matplotlib
 tensorflow
 firebase-admin
 python-dotenv
+Pyrebase
